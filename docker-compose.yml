@@ -1,0 +1,31 @@
+version: "3.0"
+services:
+#  local_server:
+#    build:
+#      context: .
+#    ports:
+#      - 3000:3000
+#    environment:
+#      - DB_POOL_SIZE=10
+#      - DATABASE__POSTGRES__HOST=db
+#      - DATABASE__POSTGRES__USER=postgres
+#      - DATABASE__POSTGRES__PASSWORD=postgres
+#      - DATABASE__POSTGRES__NAME=local_server
+#      - DATABASE__POSTGRES__PORT=5432
+#      - DATABASE__LOG_LEVEL=3
+#      - SERVICES__GCP_ENDPOINT=https://id-v2.omiselab.dev
+#      - APP__DEBUG_MODE=true
+#      - APP__PORT=3000
+
+  db:
+    image: postgres:12-alpine
+    ports:
+      - 15432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gql_test
+  adminer:
+    image: adminer
+    ports:
+    - 8080:8080

@@ -1,0 +1,51 @@
+directive @goField(forceResolver: Boolean, name: String) on INPUT_FIELD_DEFINITION
+    | FIELD_DEFINITION
+
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type City {
+    id: Int!
+    name: String!
+    State: State! @goField(forceResolver: true)
+
+    created_at: String!
+    updated_at: String!
+}
+
+type State {
+    id: Int!
+    name: String!
+    Country: Country! @goField(forceResolver: true)
+    Cities: [City!]! @goField(forceResolver: true)
+
+    created_at: String!
+    updated_at: String!
+}
+
+type Country {
+    id: Int!
+    name: String!
+    States: [State!]! @goField(forceResolver: true)
+
+    created_at: String!
+    updated_at: String!
+}
+
+type Query{
+    city(id: Int!): City!
+
+    cities: [City!]!
+
+    state(id: Int!): State!
+
+    states: [State!]!
+
+    country(id: Int!): Country!
+
+    countries: [Country!]!
+}
+
+# type Mutation {
+# }
