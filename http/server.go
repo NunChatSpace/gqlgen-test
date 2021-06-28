@@ -5,10 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/NunChatSpace/gqlgen-test/database"
-	"github.com/NunChatSpace/gqlgen-test/graph"
-	"github.com/NunChatSpace/gqlgen-test/graph/generated"
+	"github.com/NunChatSpace/gqlgen-test/http/handlers"
 	"github.com/friendsofgo/graphiql"
 	"github.com/gorilla/mux"
 )
@@ -31,9 +29,7 @@ func ListentAndServe() {
 		panic(err)
 	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{
-		Resolvers: &graph.Resolver{},
-	}))
+	srv := handlers.BuildRootHandler()
 
 	router := mux.NewRouter()
 	router.Handle("/graphql", graphiqlHandler).Methods("GET")

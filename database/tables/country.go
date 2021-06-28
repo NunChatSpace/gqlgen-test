@@ -47,7 +47,12 @@ func (c Country) DropTable(DB *gorm.DB) (err error) {
 	return nil
 }
 
-func (c Country) InsertTableData(DB *gorm.DB) (err error) {
+func (db Country) FindByIDs(DB *gorm.DB, ids []int) ([]Country, error) {
+	var countries []Country
+	tx := DB.Find(&countries, ids)
 
-	return nil
+	// res2B, _ := json.Marshal(countries[0])
+	// fmt.Println(string(res2B))
+
+	return countries, tx.Error
 }
