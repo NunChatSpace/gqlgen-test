@@ -1,0 +1,1 @@
+DELETE FROM "states" WHERE id BETWEEN 1 AND 80;

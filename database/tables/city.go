@@ -72,7 +72,16 @@ func (c City) DropTable(DB *gorm.DB) (err error) {
 	return nil
 }
 
-func (s City) InsertTableData(DB *gorm.DB) (err error) {
+func (c City) FindByIDs(DB *gorm.DB, ids []int) ([]City, error) {
+	var cities []City
+	tx := DB.Find(&cities, ids)
 
-	return nil
+	return cities, tx.Error
+}
+
+func (c City) FindByStateIDs(DB *gorm.DB, ids []int) (result []City, err error) {
+	var cities []City
+	tx := DB.Find(&cities)
+
+	return result, tx.Error
 }

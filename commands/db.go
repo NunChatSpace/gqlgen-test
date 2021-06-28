@@ -1,10 +1,13 @@
 package commands
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/NunChatSpace/gqlgen-test/database"
 	"github.com/NunChatSpace/gqlgen-test/database/tables"
+	"github.com/NunChatSpace/gqlgen-test/migrations"
+	"github.com/golang-migrate/migrate"
 	"github.com/spf13/cobra"
 )
 
@@ -35,6 +38,18 @@ func dbMigrate(cmd *cobra.Command, args []string) (err error) {
 	if err != nil {
 		return err
 	}
+
+	fmt.Println("Create table")
+	m, err := migrations.NewMigrate(db)
+	if err != nil {
+		return err
+	}
+
+	err = m.Up()
+	if err != nil && !errors.Is(err, migrate.ErrNoChange) {
+		return err
+	}
+	fmt.Println("Insert data done")
 
 	fmt.Println("Migrate Done")
 	return nil

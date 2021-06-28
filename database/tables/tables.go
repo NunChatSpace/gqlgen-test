@@ -5,7 +5,6 @@ import "gorm.io/gorm"
 type TableInterface interface {
 	NewTable(DB *gorm.DB) error
 	DropTable(DB *gorm.DB) error
-	InsertTableData(DB *gorm.DB) error
 }
 
 type Tables struct {

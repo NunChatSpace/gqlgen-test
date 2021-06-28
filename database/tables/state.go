@@ -62,7 +62,15 @@ func (s State) DropTable(DB *gorm.DB) (err error) {
 	return nil
 }
 
-func (s State) InsertTableData(DB *gorm.DB) (err error) {
+func (s State) FindByIDs(DB *gorm.DB, ids []int) ([]State, error) {
+	var states []State
+	tx := DB.Find(&states, ids)
+	return states, tx.Error
+}
 
-	return nil
+func (s State) FindByCountryIDs(DB *gorm.DB, ids []int) (result []State, err error) {
+	var states []State
+	tx := DB.Find(&states, "country_id IN ?", ids)
+
+	return states, tx.Error
 }
